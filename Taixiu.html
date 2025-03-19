@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tài Xỉu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #222;
+            color: white;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .dice {
+            font-size: 50px;
+            margin: 10px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin: 10px;
+        }
+        .tai {
+            background-color: #f39c12;
+        }
+        .xiu {
+            background-color: #3498db;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Game Tài Xỉu</h1>
+        <h2>
+            Tài xỉu, nguời không chơi là nguời không biết!
+        </h2>
+        <div>
+            <span class="dice" id="dice1">🎲</span>
+            <span class="dice" id="dice2">🎲</span>
+            <span class="dice" id="dice3">🎲</span>
+        </div>
+        <button class="btn tai" onclick="playGame('tai')">Tài</button>
+        <button class="btn xiu" onclick="playGame('xiu')">Xỉu</button>
+        <div class="result" id="result"></div>
+    </div>
+    
+    <script>
+        function rollDice() {
+            return Math.floor(Math.random() * 6) + 1;
+        }
+
+        function playGame(choice) {
+            let dice1 = rollDice();
+            let dice2 = rollDice();
+            let dice3 = rollDice();
+            let total = dice1 + dice2 + dice3;
+            
+            document.getElementById('dice1').textContent = getDiceEmoji(dice1);
+            document.getElementById('dice2').textContent = getDiceEmoji(dice2);
+            document.getElementById('dice3').textContent = getDiceEmoji(dice3);
+            
+            let resultText = `Tổng: ${total} - `;
+            let outcome = (total >= 11) ? 'tai' : 'xiu';
+            resultText += (outcome === choice) ? 'Bạn thắng! 🎉' : 'Bạn thua! 😢';
+            
+            document.getElementById('result').textContent = resultText;
+        }
+
+        function getDiceEmoji(number) {
+            const diceEmojis = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+            return diceEmojis[number - 1];
+        }
+    </script>
+</body>
+</html>
